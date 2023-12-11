@@ -6,9 +6,9 @@ namespace Infrastructure.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly TodoContext _context;
+    private readonly InstaLiteContext _context;
 
-    public UserRepository(TodoContext context)
+    public UserRepository(InstaLiteContext context)
     {
         _context = context;
     }

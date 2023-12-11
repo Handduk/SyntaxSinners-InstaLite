@@ -8,7 +8,6 @@ namespace Api.Helpers
     {
         public MappingProfile()
         {
-            CreateMap<Todo, TodoDto>();
             CreateMap<User, UserDto>();
             CreateMap<Post, PostDto>();
             CreateMap<PostDto, Post>();

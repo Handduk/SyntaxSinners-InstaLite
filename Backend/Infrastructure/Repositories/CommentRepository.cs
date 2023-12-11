@@ -7,10 +7,10 @@ namespace Infrastructure.Repositories;
 
 public class CommentRepository : ICommentRepository
 {
-    private readonly TodoContext _context;
+    private readonly InstaLiteContext _context;
     
 
-    public CommentRepository(TodoContext context)
+    public CommentRepository(InstaLiteContext context)
     {
         _context = context;
         

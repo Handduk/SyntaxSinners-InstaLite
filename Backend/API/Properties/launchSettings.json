@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "TodoAPI": {
+    "InstaLiteAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

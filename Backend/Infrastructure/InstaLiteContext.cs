@@ -3,13 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class TodoContext : DbContext
+    public class InstaLiteContext : DbContext
     {
-        public TodoContext(DbContextOptions<TodoContext> options) : base(options)
+        public InstaLiteContext(DbContextOptions<InstaLiteContext> options) : base(options)
         {
         }
-
-        public DbSet<Todo> Todos { get; set; }
 
         public DbSet<User> Users { get; set; }
 

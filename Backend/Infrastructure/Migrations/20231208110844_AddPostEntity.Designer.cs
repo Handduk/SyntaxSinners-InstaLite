@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
-    [DbContext(typeof(TodoContext))]
+    [DbContext(typeof(InstaLiteContext))]
     [Migration("20231208110844_AddPostEntity")]
     partial class AddPostEntity
     {

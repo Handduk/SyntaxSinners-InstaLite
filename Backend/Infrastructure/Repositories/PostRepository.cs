@@ -7,10 +7,10 @@ namespace Infrastructure.Repositories;
 
 public class PostRepository : IPostRepository
 {
-    private readonly TodoContext _context;
+    private readonly InstaLiteContext _context;
     
 
-    public PostRepository(TodoContext context)
+    public PostRepository(InstaLiteContext context)
     {
         _context = context;
         

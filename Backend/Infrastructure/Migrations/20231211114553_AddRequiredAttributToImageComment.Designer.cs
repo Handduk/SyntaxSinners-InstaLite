@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
-    [DbContext(typeof(TodoContext))]
+    [DbContext(typeof(InstaLiteContext))]
     [Migration("20231211114553_AddRequiredAttributToImageComment")]
     partial class AddRequiredAttributToImageComment
     {

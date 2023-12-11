@@ -29,12 +29,11 @@ builder.Services.AddCors(options =>
 
 // Database Connection String
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<TodoContext>(opt =>
+builder.Services.AddDbContext<InstaLiteContext>(opt =>
 {
     opt.UseSqlite(connectionString);
 });
 
-builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
@@ -64,7 +63,7 @@ var logger = services.GetRequiredService<ILogger<Program>>();
 
 try
 {
-    var context = services.GetRequiredService<TodoContext>();
+    var context = services.GetRequiredService<InstaLiteContext>();
     await context.Database.MigrateAsync();
 }
 catch (Exception ex)
