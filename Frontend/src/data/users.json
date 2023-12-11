@@ -1,0 +1,42 @@
+[
+        {
+            "id": 1,
+            "username": "AronAsk",
+            "password": "Bullen69",
+            "firstName": "Aron",
+            "lastName": "Ask",
+            "Email": "KanskeAronAsk@hotMALE.com"
+        },
+        {
+            "id": 2,
+            "username": "Jeppeking",
+            "password": "Dragon69Slayer",
+            "firstName": "Jesper",
+            "lastName": "King",
+            "Email": "KingJesperTheThird@hotMALE.com"
+        },
+        {
+            "id": 3,
+            "username": "Marrebarre",
+            "password": "Weed4Lyfe6969",
+            "firstName": "Martin",
+            "lastName": "kanske Karlsson",
+            "Email": "WeedLover4Ever@hotMALE.com"
+        },
+        {
+            "id": 4,
+            "username": "RickTheDick",
+            "password": "nsfwboobs",
+            "firstName": "Ricardo",
+            "lastName": "Efternamn",
+            "Email": "tuttar@hot.com"
+        },
+        {
+            "id": 5,
+            "username": "lilPhil",
+            "password": "fillebille",
+            "firstName": "Philip",
+            "lastName": "Lil",
+            "Email": "DensannaPhilip@hotGIRL.com"
+        }
+]
