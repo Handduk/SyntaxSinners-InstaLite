@@ -14,26 +14,24 @@ export function Upload() {
       console.log(files);
     }
   };
-
+  
   const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(event.target.value);
   };
 
-  //Handlesubmit funkar inte
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (selectedFile && description) {
-      try {
-        const formData = new FormData();
-        formData.append('image', selectedFile, selectedFile.name);
-        
-        await createPost({ image: formData, description});
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
-    }
+    if (selectedFile && description){
+      try{
+        await createPost({ title: "bingbong", image: selectedFile, description});
+        alert("image uploaded!");
+      }catch(error){
+        console.error("Error uploading image : ", error);
+      };
+    };
   };
+
   return (
     <Form onSubmit={handleSubmit} className='w-25 mt-5 mx-auto'>
       <Form.Group controlId="formFileLg" className="mb-3">

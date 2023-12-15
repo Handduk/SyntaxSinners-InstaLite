@@ -84,13 +84,15 @@ namespace Api.Controllers
 
                 if (existingUser != null && await _userRepository.VerifyPassword(loginModel.Password, existingUser.PasswordHash))
                 {
+                    _logger.LogInformation("Login successful.");
                     return Ok(new { message = "Login successful." });
                 }
-
+                _logger.LogError("Invalid username or password.");
                 return Unauthorized(new { error = "Invalid username or password." });
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Failed to login.");
                 return BadRequest(new { error = "Failed to login." });
             }
         }
@@ -103,9 +105,11 @@ namespace Api.Controllers
                 var user = await _userRepository.DeleteUserById(id);
                 if (user == null)
                 {
+                    _logger.LogError($"User with Id {id} not found.");
                     return NotFound();
                 }
                 var userDto = _mapper.Map<UserDto>(user);
+                _logger.LogInformation($"User with Id {id} deleted.");
                 return Ok(userDto);
             }
             catch (Exception ex)
@@ -124,18 +128,21 @@ namespace Api.Controllers
 
                 if (existingUser == null)
                 {
+                    _logger.LogError($"User with Id {id} not found.");
                     return NotFound($"User with Id {id} not found.");
                 }
 
                 var existingEmailUser = await _userRepository.GetUserByEmail(updateModel.Email);
                 if (existingEmailUser != null && existingEmailUser.Id != id)
                 {
+                    _logger.LogError("Email address is already registered.");
                     return BadRequest(new { error = "Email address is already registered." });
                 }
 
                 var existingUsernameUser = await _userRepository.GetUserByUsername(updateModel.Username);
                 if (existingUsernameUser != null && existingUsernameUser.Id != id)
                 {
+                    _logger.LogError("Username is already registered.");
                     return BadRequest(new { error = "Username is already registered." });
                 }
 
@@ -143,7 +150,7 @@ namespace Api.Controllers
                 await _userRepository.UpdateUser(existingUser);
 
                 var updatedUserDto = _mapper.Map<UserDto>(existingUser);
-
+                _logger.LogInformation($"User with Id {id} updated.");
                 return Ok(updatedUserDto);
             }
             catch (Exception ex)

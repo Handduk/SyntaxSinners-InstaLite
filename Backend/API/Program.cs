@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Api.Helpers;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +22,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy",
                           policy =>
                           {
-                              policy.WithOrigins("http://localhost:3000")
+                              policy.WithOrigins("http://localhost:5173")
                                     .AllowAnyHeader()
-                                    .AllowAnyMethod();
+                                    .AllowAnyMethod()
+                                    .AllowAnyOrigin();
                           });
 });
 
@@ -49,6 +51,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "media")),
+    RequestPath = "/media"
+});
 
 app.UseCors("CorsPolicy");
 

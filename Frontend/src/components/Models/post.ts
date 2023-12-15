@@ -1,6 +1,6 @@
 export type Post = {
     id: number;
     user: string;
-    image: File | FormData;
+    image: string;
     description: string;
 }

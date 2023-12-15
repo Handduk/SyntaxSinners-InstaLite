@@ -2,13 +2,15 @@ import axios from "axios";
 import { LoginModel } from "../components/Models/loginModel";
 import { PostProps } from "../components/PostItem";
 import { Post } from "../components/Models/post";
+import { RegisterModel } from "../components/Models/registerModel";
 
-const baseUrl = `https://localhost:5000/api/Post`;
+const postBaseUrl = `https://localhost:5000/api/Post`;
 const userBaseUrl = `https://localhost:5000/api/User`;
 
 export const getPosts = async (): Promise<Post[]> => {
     try {
-      const response = await axios.get(baseUrl);
+      const response = await axios.get(postBaseUrl);
+      console.log(response);
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch posts');
@@ -16,29 +18,14 @@ export const getPosts = async (): Promise<Post[]> => {
 }
 
 export const createPost = (post: PostProps) => {
-  const logFormData = (formData: FormData) => {
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
-  };
 
   const formData = new FormData();
 
-  if (post.image instanceof File) {
-    formData.append('image', post.image, post.image.name);
-  } else if (post.image instanceof FormData) {
-    for (const [key, value] of post.image.entries()) {
-      formData.append(key, value);
-    }
-  }
-
+  formData.append('title', post.title);
+  formData.append('ImageFile', post.image, post.image.name);
   formData.append('description', post.description);
 
-  // Logga FormData för att kolla filtyp
-  console.log('FormData:');
-  logFormData(formData);
-
-  return axios.post(baseUrl, formData)
+  return axios.post(postBaseUrl, formData, {headers: {"Content-Type": "multipart/form-data"}})
     .then(response => response.data)
     .catch(error => {
       console.error('Error during createPost:', error);
@@ -47,18 +34,21 @@ export const createPost = (post: PostProps) => {
 };
 
 export const deletePost = (id: number) => {
-    return axios.delete(`${baseUrl}/${id}`)
+    return axios.delete(`${postBaseUrl}/${id}`)
     .then(response => response.data);
 }
 
-export const createUser = (user: {username: string,
-     email: string, 
-     password: string;}) => {
+export const createUser = (user: RegisterModel) => {
         return axios.post(userBaseUrl, {
-            username: user.username,
-            email: user.email,
-            passwordHash: user.password
-        }).then(response => response.data);
+          username: user.username,
+          passwordHash: user.password,
+          email: user.email
+        })
+        .then(response => response.data)
+        .catch(error => {
+          console.error('Error during createUser:', error);
+          throw error;
+        });
     }
 
 export const loginUser = (loginModel: LoginModel) => {

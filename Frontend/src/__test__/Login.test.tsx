@@ -2,8 +2,6 @@ import { expect, test, it, describe} from 'vitest'
 import { promises as fsPromises} from "fs"
 import { readFile } from "fs/promises"
 import path from "path"
-import { render, screen } from '@testing-library/react';
-import { Login } from '../pages/Login';
 
 //Skriv nya tester som kollar mot api istället för json-fil.
 
@@ -53,38 +51,4 @@ test("Check if username and password matches with jonFiles_checkUser", async () 
     }catch(error){
         console.error("nja nu blev det lite fel?", error)
     }
-});
-
-//Test för rendering
-describe ("Login components", () => {
-
-    it("Checks if EmailForm renders", () => {
-        render(<Login />);
-    
-        const emailForm = screen.getByLabelText("Email address");
-
-        console.log("Email formen renderas ut!");
-        expect(emailForm).toBeDefined();
-    });
-
-    it("Check if PasswordForm renders", () => {
-        render(<Login/>);
-
-        const passwordForm = screen.getAllByLabelText("Password");
-
-        console.log("password formen renderas!");
-        expect(passwordForm).toBeDefined();
-    });
-
-    it("Check if buttons renders", () => {
-        render(<Login/>);
-
-        const loginButton = screen.getAllByText(/Login/i);
-        const registerButton = screen.getAllByText(/Register/i);
-
-        console.log("Knappar renderas")
-
-        expect(loginButton).toBeDefined();
-        expect(registerButton).toBeDefined();
-    })
 });

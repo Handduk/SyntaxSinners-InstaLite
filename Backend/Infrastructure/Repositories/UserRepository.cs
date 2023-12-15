@@ -43,9 +43,9 @@ public class UserRepository : IUserRepository
         return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
     }
 
-    public async Task<bool> VerifyPassword(string enteredPassword, string hashedPassword)
+    public Task<bool> VerifyPassword(string enteredPassword, string hashedPassword)
     {
-        return BCrypt.Net.BCrypt.Verify(enteredPassword, hashedPassword);
+        return Task.FromResult(BCrypt.Net.BCrypt.Verify(enteredPassword, hashedPassword));
     }
 
     public async Task<User> DeleteUserById(int id)
