@@ -3,12 +3,15 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { loginUser } from '../services/instaLiteService';
 import { LoginModel } from '../components/Models/loginModel';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
   const [loginData, setLoginData] = useState<LoginModel>({
     username: '',
     password: '',
   });
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -19,7 +22,10 @@ export function Login() {
     event.preventDefault();
     try {
       const response = await loginUser(loginData);
-      window.alert("Inloggad!");
+      if (response){
+        navigate('/Home');
+      }
+      window.alert("Logged in!");
       console.log(response);
     } catch (error) {
       console.error('Login failed:', error);

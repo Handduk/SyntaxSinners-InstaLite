@@ -63,6 +63,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("TEXT");
 
+                    b.Property<byte[]>("ImageContent")
+                        .HasColumnType("BLOB");
+
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 

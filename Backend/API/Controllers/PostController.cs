@@ -50,6 +50,7 @@ namespace Api.Controllers
             var post = await _postRepository.GetPost(id);
             if (post == null)
             {
+                _logger.LogError("Post not found.");
                 return NotFound();
             }
             var postDto = _mapper.Map<PostDto>(post);
@@ -73,6 +74,7 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
+                
                 _logger.LogError(ex, "Failed to create post.");
                 return BadRequest(new { error = "Failed to create post." });
             }
@@ -112,9 +114,11 @@ namespace Api.Controllers
                 var post = await _postRepository.DeletePostById(id);
                 if (post == null)
                 {
+                    _logger.LogError("Post not found.");
                     return NotFound();
                 }
                 var postDto = _mapper.Map<PostDto>(post);
+                _logger.LogInformation("Post succesfully deleted.");
                 return Ok(postDto);
             }
             catch (Exception ex)

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom"
 import Dropdown from "react-bootstrap/Dropdown"
 
 
+
 export function Navbar (){
     return(
         <NavbarBs sticky="top" className="bg-dark shadow-lg mb-3">
@@ -26,7 +27,7 @@ export function Navbar (){
 
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Namn
+                  Username
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {/**Ej implementerade sidor*/}

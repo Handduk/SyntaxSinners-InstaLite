@@ -28,7 +28,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CommentDto>>> GetPosts()
+        public async Task<ActionResult<List<CommentDto>>> GetComments()
         {
             try
             {
@@ -47,13 +47,21 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CommentDto>> GetComment(int id)
         {
-            var comment = await _commentRepository.GetComment(id);
-            if (comment == null)
+            try
             {
-                return NotFound();
+                var comment = await _commentRepository.GetComment(id);
+                if (comment == null)
+                {
+                    return NotFound();
+                }
+                var commentDto = _mapper.Map<CommentDto>(comment);
+                return Ok(commentDto);
             }
-            var commentDto = _mapper.Map<CommentDto>(comment);
-            return Ok(commentDto);
+            catch (Exception ex) 
+            {
+                _logger.LogError(ex, "Failed to get comment.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost]
@@ -61,14 +69,25 @@ namespace Api.Controllers
         {
             try
             {
+                if (commentDto.ImageComment == null)
+                {
+                    throw new ArgumentException("ImageComment is required");
+                }
+
                 Comment comment = _mapper.Map<Comment>(commentDto);
 
                 _commentRepository.AddComment(comment);
 
                 return Ok("Comment created successfully");
             }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, "Failed to create comment due to validation error.");
+                return BadRequest($"Error: {ex.Message}");
+            }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Failed to create comment.");
                 return BadRequest($"Error: {ex.Message}");
             }
         }
